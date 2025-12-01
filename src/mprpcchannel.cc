@@ -12,6 +12,15 @@
 #include "mprpccontroller.h"
 #include "zookeeperutil.h"
 
+
+/*
+    1、提取服务名和方法名
+    2、序列化请求
+    3、构造带长度前缀的自定义协议包
+    4、通过 ZooKeeper 动态发现服务地址
+    5、建立 TCP 连接并发送请求
+    6、接收响应并反序列化
+*/
 void MprpcChannel::CallMethod(const google::protobuf::MethodDescriptor *method, google::protobuf::RpcController *controller, const google::protobuf::Message *request, google::protobuf::Message *response, google::protobuf::Closure *done)
 {
     // 通过method获取method所属的service
